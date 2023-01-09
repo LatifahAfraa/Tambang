@@ -7,12 +7,12 @@
                 <center>
                     <h2> Koppaska (Koperasi Jasa Pengusaha Pasir Silika)<br>
                         Laporan Ritase per Barang<br>
-                        Dari 01 Januari {{ $tahun }} s/d 16 Desember {{ $tahun }}
+                        Dari {{ date("d F Y", $start) }} s/d {{ date("d F Y", $end) }}
                     </h2>
                 </center>
                 <form method="get" action="" class="form-inline float-right">
                     <div class="input-group">
-                        <input type="number" placeholder="Tahun" name="tahun" id="tahun" class="form-control">
+                        <input type="text" placeholder="Tahun" name="tahun" id="tahun" class="form-control input-daterange-datepicker" value="{{ request()->tahun ?? "" }}">
                         <div class="input-group-prepend">
                             <button type="submit" class="btn btn-outline-primary ">Telusuri</button>
                         </div>
@@ -20,8 +20,8 @@
                 </form>
             </div>
             <br>
-            <a href="{{ route('cetak.perbarang') }}" class="btn btn-primary" target="_blank">CETAK PDF</a>
-            <a href="{{ route('excel.perbarang') }}" class="btn btn-success" target="_blank">CETAK EXCEL</a>
+            <a href="{{ route('cetak.perbarang', ['tahun' => request()->tahun ?? ""]) }}" class="btn btn-primary" target="_blank">CETAK PDF</a>
+            <a href="{{ route('excel.perbarang', ['tahun' => request()->tahun ?? ""]) }}" class="btn btn-success" target="_blank">CETAK EXCEL</a>
             <br>
 
             <table class="table table-bordered mt-2">
@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                     @php
-                        $no = ((((request()->has('page') && request()->get('page') > 1)? request()->get('page') : 1)-1) *10) + 1;
+                        $no = 1;
                         $total_keseluruhan = 0;
 
                     @endphp

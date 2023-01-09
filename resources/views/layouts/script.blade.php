@@ -9,8 +9,17 @@
 	<script src="{{ asset('assets/vendor/bootstrap-datetimepicker/js/moment.js')}}"></script>
 	<script src="{{ asset('assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
 
+    {{-- daterangepicker --}}
+    <script src="{{ asset('assets/vendor/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins-init/bs-daterange-picker-init.js') }}"></script>
+
+
 	<!-- Apex Chart -->
 	<script src="{{ asset('assets/vendor/apexchart/apexchart.js')}}"></script>
+
+    <!-- Chart ChartJS plugin files -->
+    <script src="{{ asset('assets/vendor/chart.js/Chart.bundle.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins-init/chartjs-init.js')}}"></script>
 
 	<!-- Datatable -->
 	<script src="{{ asset('assets/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>

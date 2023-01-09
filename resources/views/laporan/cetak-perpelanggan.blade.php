@@ -20,7 +20,8 @@
     <div class="container-fluid">
        <center> <h2> Koppaska (Koperasi Jasa Pengusaha Pasir Silika)<br>
             Laporan Ritase per Pelanggan<br>
-            Dari 01 Januari {{ $tahun }} s/d 16 Desember {{ $tahun }}</h2>
+            Dari {{ date("d F Y", $start) }} s/d {{ date("d F Y", $end) }}
+        </h2>
 
 
         <table>
@@ -33,7 +34,8 @@
             </thead>
             <tbody>
                 @php
-                    $no = ((((request()->has('page') && request()->get('page') > 1)? request()->get('page') : 1)-1) *10) + 1;
+                    //$no = ((((request()->has('page') && request()->get('page') > 1)? request()->get('page') : 1)-1) *10) + 1;
+                    $no = 1;
                     $total_keseluruhan = 0;
                 @endphp
                 {{-- fungsi => untuk ambil value  --}}

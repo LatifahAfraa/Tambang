@@ -11,26 +11,42 @@
     </thead>
     <tbody>
         @php
-            $no = ((((request()->has('page') && request()->get('page') > 1)? request()->get('page') : 1)-1) *10) + 1;
+            $no = 1;
             $total_keseluruhan = 0;
         @endphp
-        @foreach ($barang_perpelanggan as $items)
-
+        @foreach ($barang_perpelanggan as $barang => $member_lists)
             @php
-                $total_keseluruhan += $items->sum('qty');
+                $total_barang = 0;
+                $members = [];
+            @endphp
+
+            @foreach ($member_lists as $key => $item)
+                @php
+                    $members[] = [
+                        'nama' => $key,
+                        'qty' => $item->sum('qty') ?? 0
+                    ];
+                    $total_barang += $item->sum('qty') ?? 0;
+                @endphp
+            @endforeach
+            @php
+                $total_keseluruhan += $total_barang;
             @endphp
             <tr>
-                <td rowspan="{{ $items->count() }}">{{ $no++ }}</td>
-                <td rowspan="{{ $items->count() }}">{{ $items->get(0)->barang_nama ?? "" }}</td>
-                <td>{{ $items->get(0)->member_nama ?? "" }}</td>
-                <td>{{ $items->get(0)->qty ?? 0 }}</td>
-                <td rowspan="{{ $items->count() }}">{{ $items->sum('qty') }}</td>
+                <td rowspan="{{ $member_lists->count() }}">{{ $no++ }}</td>
+                <td rowspan="{{ $member_lists->count() }}">{{ $barang ?? "" }}</td>
+                <td>{{ $members[0]['nama'] }}</td>
+                <td>{{ $members[0]['qty'] }}</td>
+                <td rowspan="{{ $member_lists->count() }}">{{ $total_barang ?? 0 }}</td>
             </tr>
-            @foreach ($items as $key => $item)
-                @if ($key > 0)
+
+
+
+            @foreach ($members as $key => $member)
+                @if ($key != 0)
                     <tr>
-                        <td>{{ $item->member_nama ?? "" }}</td>
-                        <td>{{ $item->qty ?? 0 }}</td>
+                        <td>{{ $member['nama'] ?? "" }}</td>
+                        <td>{{ $member['qty'] ?? 0 }}</td>
                     </tr>
                 @endif
             @endforeach

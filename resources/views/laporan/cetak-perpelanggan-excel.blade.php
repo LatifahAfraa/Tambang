@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         @php
-            $no = ((request()->has('page') && request()->get('page') > 1 ? request()->get('page') : 1) - 1) * 10 + 1;
+            $no = 1;
             $total_keseluruhan = 0;
         @endphp
         {{-- fungsi => untuk ambil value  --}}
