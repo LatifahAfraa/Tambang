@@ -31,9 +31,38 @@
                     @endforeach
                    </select>
                 </div>
+
+                <label for="qty">Jumlah QTY</label>
+                <div class="form-group">
+                    <input type="text" name="qty" class="form-control">
+                </div>
+
+                <label for="">Barang</label>
+                <div class="form-group">
+                    <select name="barang_id"  class="form-select" >
+                        @foreach($barang as $item)
+                        <option value="{{ old('barang_id') ? old ('barang_id') : $item->barang_id }}">
+                            {{ $item->barang_nama }}
+                        </option>
+                        @endforeach
+                       </select>
+                </div>
+
+                <label for="">Satuan</label>
+                <div class="form-group">
+                    <select name="satuan_id"  class="form-select" >
+                        @foreach($satuan as $item)
+                        <option value="{{ old('satuan_id') ? old ('satuan_id') : $item->satuan_id }}">
+                            {{ $item->satuan_nama }}
+                        </option>
+                        @endforeach
+                       </select>
+                </div>
+
+
                 <div class="form-group">
 
-               
+
                 <div class="form-group">
                     <button class="btn btn-sm btn-primary" type="submit">Checkin</button>
                     <a href="{{ route('adminAb.index.op2')}}" class="btn btn-sm btn-outline-success">Kembali</a>
@@ -44,7 +73,7 @@
 </div>
 
 
-    
+
 <script type="text/javascript">
 
         // $(document).ready(function() {
@@ -107,7 +136,7 @@
         });
     } else {
         $('#select-kendr').empty();
-        
+
     }
     });
     //  Event on change select province:end

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PointController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,6 +61,9 @@ Route::middleware('admin')->prefix('admin')->group(function ()
     route::get("cetak-perbarang", [LaporanController::class, 'cetak_perbarang'])->name("cetak.perbarang");
     route::get("excel-perbarang", [LaporanController::class, 'excel_perbarang'])->name("excel.perbarang");
 
+    //Point Sopir
+    route::get('point-sopir', [PointController::class,'index'])->name('point.sopir');
+
 
     Route::get('member_tampil', 'MemberController@member')->name('tampil.member');
     Route::get('delete', 'MemberController@destroy_member')->name('hapus.member');
@@ -71,6 +76,15 @@ Route::middleware('operator')->prefix('operator')->group(function ()
     Route::get('transaksi-complete/{id}', 'TransaksiController@complete')->name('transaksi.complete');
     Route::put('transaksi-completes/{id}', 'TransaksiController@completeTransaksi')->name('transaksi.completes');
     Route::get('transaksi-status/{id}/{value}', 'TransaksiController@status')->name('transaksi.status');
+
+    //checkout
+    Route::get('checkout-op', [CheckoutController::class, 'index_op'])->name('checkout.op');
+    Route::get('checkout/{id}/{value}',[CheckoutController::class, 'status'])->name('checkout.status');
+    Route::get('checkout-ket/{id}',[CheckoutController::class, 'show'])->name('checkout.show');
+    Route::put('checkout-kete/{id}',[CheckoutController::class, 'ket'])->name('checkout.ket');
+
+
+
 });
 
 Route::middleware('operator2')->prefix('operator2')->group(function ()

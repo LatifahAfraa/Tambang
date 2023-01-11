@@ -39,7 +39,7 @@ class AdminAbController extends Controller
     {
         $data['title'] = 'Checkin';
         $data['member'] = DB::table('tb_member')
-        ->where(['member_hapus' => 0])    
+        ->where(['member_hapus' => 0])
         ->get();
 
         $data['kendaraan'] = DB::table('tb_kendaraan')
@@ -51,7 +51,7 @@ class AdminAbController extends Controller
     public function select_member(Request $request)
     {
         $member=[];
-       
+
         if ($request->has('q')) {
             $search = $request->q;
             $member = DB::table('tb_member')
@@ -81,7 +81,7 @@ class AdminAbController extends Controller
         return response()->json($kendaraan);
     }
 
-   
+
     public function store(Request $request)
     {
         $today = date('Y-m-d');
@@ -115,8 +115,8 @@ class AdminAbController extends Controller
         }
     }
 
-  
-  
+
+
 
     //op2
 
@@ -141,9 +141,13 @@ class AdminAbController extends Controller
     {
         $data['title'] = 'Checkin';
         $data['member'] = DB::table('tb_member')
-        ->where(['member_hapus' => 0])  
+        ->where(['member_hapus' => 0])
         ->get();
         $data['kendaraan'] = DB::table('tb_kendaraan')
+        ->get();
+        $data['barang'] = DB::table('tb_barang')
+        ->get();
+        $data['satuan'] = DB::table('tb_satuan')
         ->get();
         return view('adminAb.operator2.create',$data);
     }
@@ -168,6 +172,8 @@ class AdminAbController extends Controller
         $this->validate($request, [
             'member_id' => 'required',
             'kendaraan_id' => 'required',
+            'barang_id' => 'required',
+            'satuan_id' => 'required',
         ]);
         $insert = DB::table('tb_transaksi')
                     ->insert([
@@ -176,6 +182,9 @@ class AdminAbController extends Controller
                                 'latitude' => $request->lat,
                                 'longitude' => $request->long,
                                 'no_urut' => $no,
+                                'barang_id' =>$request->barang_id,
+                                'satuan_id' =>$request->satuan_id,
+                                'qty' =>$request->qty,
             ]);
         if($insert)
         {
