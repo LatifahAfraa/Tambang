@@ -85,7 +85,7 @@
     </div>
 
     @include('layouts.script')
-
+    @stack('js')
 </body>
 
 <!-- Mirrored from tixia.dexignzone.com/xhtml/customer-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Jul 2021 10:26:33 GMT -->

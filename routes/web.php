@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PointController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::middleware('admin')->prefix('admin')->group(function ()
     Route::resource('satuan','SatuanController');
     Route::resource('member','MemberController');
     Route::resource('setting','SettingController');
+
+
 
     Route::resource('tujuan','TujuanController');
 
@@ -108,6 +111,10 @@ Route::middleware('operator2')->prefix('operator2')->group(function ()
     Route::put('transaksi-completes_op2  /{id}', 'TransaksiController@completeTransaksi_op2')->name('transaksi.completes.op2');
     Route::get('transaksi-status/{id}/{value}', 'TransaksiController@status')->name('transaksi.status.op2');
 });
+
+//grafik
+Route::get('grafik', [GrafikController::class, 'index'])->name('grafik');
+
 Route::get('/logout', 'HomeController@logout')->name('logout');
 
 // Urgent

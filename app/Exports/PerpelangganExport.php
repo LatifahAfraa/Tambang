@@ -37,6 +37,7 @@ class PerpelangganExport implements FromView
         ->select("tb_transaksi.*", "tb_member.member_nama")
         ->join('tb_member', 'tb_member.member_id', '=', 'tb_transaksi.member_id')
         ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
+        ->whereStatusTransaksi(1)
         ->get()
         ->groupBy("member_nama");
         return view('laporan.cetak-perpelanggan-excel', $data);

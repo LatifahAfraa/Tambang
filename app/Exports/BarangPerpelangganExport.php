@@ -37,6 +37,7 @@ class BarangPerpelangganExport implements FromView
           ->join('tb_barang', 'tb_barang.barang_id', '=', 'tb_transaksi.barang_id')
           ->join('tb_member', 'tb_member.member_id', '=', 'tb_transaksi.member_id')
           ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
+          ->whereStatusTransaksi(1)
           ->get()
           ->groupBy(['barang_nama', 'member_nama']);
 

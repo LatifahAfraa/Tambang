@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sum;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class HomeController extends Controller
 {
@@ -15,28 +14,32 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data['title'] = 'Home';
-        $find = $request->tahun ?? date("m/Y - m/Y");
+        $find = $request->tahun ?? date("01/01/2022 - 12/31/2022");
 
         $explode = explode("-", $find); //explode untuk memecah data waktu berdasarkan tanda -
-        $start = trim($explode[0]); //trim untuk menghilangkan spasi pada data waktu explode [0] untuk mengambil array pertama
-        $end = trim($explode[1]);
-
-        $start = strtotime($start); // format date m/d/Y (01/01/2022) menjadi time : (1640970000)
+        $start = Carbon::parse($explode[0])->format('Y-m-d') . ' 00:00:01';
+        $data['month_start'] = date('m');
         $data['start'] = $start;
-        $data['ms'] = date("m", $start );
-        $start = date("Y-m", $start); // ubah time: 1640970000  menjadi date Y-m-d (2022-01-01)
 
-
-
-        $end = strtotime($end);
+        $end = Carbon::parse($explode[1])->format('Y-m-d') . ' 23:59:59';
+        $data['month_end'] = date('m');
         $data['end'] = $end;
-        $data['me'] = date("m", $end );
-        $end = date('Y-m', $end);
 
-        $data['home'] = DB::table("tb_transaksi")
-        ->select("tb_transaksi.*",)
-        ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
+
+
+        $tb_transaksi = DB::table("tb_transaksi")
+        // ->select('') berdasarkan field
+        ->selectRaw("MONTH(check_in) as month, SUM(qty) as qty") //bisa menjalankan function bawaan sql
+        ->whereStatusTransaksi(1)
+        ->whereBetween('check_in', [$start, $end])
+        ->groupByRaw('MONTH(check_in)') // raw bisa menjalankan function
         ->get();
+
+        $data['transaksi'] = [];
+        foreach ($tb_transaksi as $key => $transaksi) {
+            $data['transaksi'][$transaksi->month] = $transaksi->qty;
+        }
+
         return view('home',$data);
     }
 
@@ -45,56 +48,64 @@ class HomeController extends Controller
     public function indexOperator(Request $request)
     {
         $data['title'] = 'Home';
-        $find = $request->tahun ?? date("m/Y - m/Y");
+        $find = $request->tahun ?? date("01/01/2022 - 12/31/2022");
 
         $explode = explode("-", $find); //explode untuk memecah data waktu berdasarkan tanda -
-        $start = trim($explode[0]); //trim untuk menghilangkan spasi pada data waktu explode [0] untuk mengambil array pertama
-        $end = trim($explode[1]);
-
-        $start = strtotime($start); // format date m/d/Y (01/01/2022) menjadi time : (1640970000)
+        $start = Carbon::parse($explode[0])->format('Y-m-d') . ' 00:00:01';
+        $data['month_start'] = date('m');
         $data['start'] = $start;
-        $data['ms'] = date("m", $start );
-        $start = date("Y-m", $start); // ubah time: 1640970000  menjadi date Y-m-d (2022-01-01)
 
-
-
-        $end = strtotime($end);
+        $end = Carbon::parse($explode[1])->format('Y-m-d') . ' 23:59:59';
+        $data['month_end'] = date('m');
         $data['end'] = $end;
-        $data['me'] = date("m", $end );
-        $end = date('Y-m', $end);
 
-        $data['home'] = DB::table("tb_transaksi")
-        ->select("tb_transaksi.*",)
-        ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
+
+
+        $tb_transaksi = DB::table("tb_transaksi")
+        // ->select('') berdasarkan field
+        ->selectRaw("MONTH(check_in) as month, SUM(qty) as qty") //bisa menjalankan function bawaan sql
+        ->whereStatusTransaksi(1)
+        ->whereBetween('check_in', [$start, $end])
+        ->groupByRaw('MONTH(check_in)') // raw bisa menjalankan function
         ->get();
+
+        $data['transaksi'] = [];
+        foreach ($tb_transaksi as $key => $transaksi) {
+            $data['transaksi'][$transaksi->month] = $transaksi->qty;
+        }
+
         return view('home',$data);
     }
 
     public function indexOperator2(Request $request)
     {
         $data['title'] = 'Home';
-        $find = $request->tahun ?? date("m/Y - m/Y");
+        $find = $request->tahun ?? date("01/01/2022 - 12/31/2022");
 
         $explode = explode("-", $find); //explode untuk memecah data waktu berdasarkan tanda -
-        $start = trim($explode[0]); //trim untuk menghilangkan spasi pada data waktu explode [0] untuk mengambil array pertama
-        $end = trim($explode[1]);
-
-        $start = strtotime($start); // format date m/d/Y (01/01/2022) menjadi time : (1640970000)
+        $start = Carbon::parse($explode[0])->format('Y-m-d') . ' 00:00:01';
+        $data['month_start'] = date('m');
         $data['start'] = $start;
-        $data['ms'] = date("m", $start );
-        $start = date("Y-m", $start); // ubah time: 1640970000  menjadi date Y-m-d (2022-01-01)
 
-
-
-        $end = strtotime($end);
+        $end = Carbon::parse($explode[1])->format('Y-m-d') . ' 23:59:59';
+        $data['month_end'] = date('m');
         $data['end'] = $end;
-        $data['me'] = date("m", $end );
-        $end = date('Y-m', $end);
 
-        $data['home'] = DB::table("tb_transaksi")
-        ->select("tb_transaksi.*",)
-        ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
+
+
+        $tb_transaksi = DB::table("tb_transaksi")
+        // ->select('') berdasarkan field
+        ->selectRaw("MONTH(check_in) as month, SUM(qty) as qty") //bisa menjalankan function bawaan sql
+        ->whereStatusTransaksi(1)
+        ->whereBetween('check_in', [$start, $end])
+        ->groupByRaw('MONTH(check_in)') // raw bisa menjalankan function
         ->get();
+
+        $data['transaksi'] = [];
+        foreach ($tb_transaksi as $key => $transaksi) {
+            $data['transaksi'][$transaksi->month] = $transaksi->qty;
+        }
+
         return view('home',$data);
     }
 

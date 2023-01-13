@@ -47,6 +47,7 @@ class LaporanController extends Controller
         ->join('tb_member', 'tb_member.member_id', '=', 'tb_transaksi.member_id')
         ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
         // ->whereBetween("tb_transaksi.check_in", [$start, $end])
+        ->whereMemberHapus(0)
         ->get()
         ->groupBy("member_nama");
 
@@ -81,6 +82,7 @@ class LaporanController extends Controller
         ->select("tb_transaksi.*", "tb_member.member_nama")
         ->join('tb_member', 'tb_member.member_id', '=', 'tb_transaksi.member_id')
         ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
+        ->whereStatusTransaksi(1)
         ->get()
         ->groupBy("member_nama");
 
@@ -121,6 +123,7 @@ class LaporanController extends Controller
           ->join('tb_barang', 'tb_barang.barang_id', '=', 'tb_transaksi.barang_id')
           ->join('tb_member', 'tb_member.member_id', '=', 'tb_transaksi.member_id')
           ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
+          ->whereStatusTransaksi(1)
           ->get()
           ->groupBy(['barang_nama', 'member_nama']);
 
@@ -150,6 +153,7 @@ class LaporanController extends Controller
         ->join('tb_barang', 'tb_barang.barang_id', '=', 'tb_transaksi.barang_id')
         ->join('tb_member', 'tb_member.member_id', '=', 'tb_transaksi.member_id')
         ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
+        ->whereStatusTransaksi(1)
         ->get()
         ->groupBy(['barang_nama', 'member_nama']);
 
@@ -185,6 +189,7 @@ class LaporanController extends Controller
             ->Join('tb_satuan', 'tb_satuan.satuan_id', '=', 'tb_transaksi.satuan_id')
             ->join('tb_barang', 'tb_barang.barang_id', '=', 'tb_transaksi.barang_id')
             ->whereBetween("check_in", [$start, $end.' 23:59:59'])
+            ->whereStatusTransaksi(1)
             ->get()->groupBy(['barang_nama', 'satuan_nama']);
 
             return view('laporan.perbarang',$data);
@@ -212,6 +217,7 @@ class LaporanController extends Controller
             ->Join('tb_satuan', 'tb_satuan.satuan_id', '=', 'tb_transaksi.satuan_id')
             ->join('tb_barang', 'tb_barang.barang_id', '=', 'tb_transaksi.barang_id')
             ->whereBetween("check_in", [$start, $end.' 23:59:59'])
+            ->whereStatusTransaksi(1)
             ->get()->groupBy(['barang_nama', 'satuan_nama']);
 
         $pdf = PDF::loadview('laporan.cetak-perbarang',$data);

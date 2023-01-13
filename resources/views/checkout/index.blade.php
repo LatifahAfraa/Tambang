@@ -25,6 +25,7 @@
                                 <th>In</th>
                                 <th>Out</th>
                                 <th>Status</th>
+                                <th>Keterangan</th>
                                 <th>-</th>
                             </tr>
                         </thead>
@@ -52,6 +53,7 @@
                                                 <span class="badge badge-danger">Ditolak</span>
                                             @endif
                                         </td>
+                                        <td>{{ $item->keterangan }}</td>
                                         <td>
                                             <a href="{{ route('checkout.status',[$item->transaksi_id,1])}}"
                                                 class="btn btn-sm shadow btn-success">Terima</a>
@@ -79,7 +81,7 @@
                         </thead>
                         <tbody>
                             @foreach ($transaksi as $item)
-                                @if ($item->status_transaksi == 1)
+                                @if ($item->status_transaksi == 1 && 2)
                                 <tr>
                                     <td>{{ $item->member_nama }}</td>
                                     <td>
