@@ -1,0 +1,36 @@
+@extends('master')
+@section('title')
+@section('content')
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Input Data Operator</h4>
+    </div>
+    <div class="card-body">
+        <div class="basic-form">
+            <form action="{{ route('operator.store')}}" method="post">
+                @csrf
+                <label for="">Nama Operator</label>
+                <div class="form-group">
+                    <input type="text" class="form-control input-rounded" name="name" placeholder=". . . . .">
+                </div>
+                <label for="">Username</label>
+                <div class="form-group">
+                    <input type="text" class="form-control input-rounded" name="username" placeholder=". . . . .">
+                </div>
+                <label for="">Password</label>
+                <div class="form-group">
+                    <input type="password" class="form-control input-rounded" name="password" placeholder=". . . . .">
+                </div>
+                <label for="">Konfirmasi Password</label>
+                <div class="form-group">
+                    <input type="password" class="form-control input-rounded" name="password_confirmation" placeholder=". . . . .">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-sm btn-primary" type="submit">Simpan</button>
+                    <a href="{{ route('operator.index')}}" class="btn btn-sm btn-outline-success">Kembali</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
