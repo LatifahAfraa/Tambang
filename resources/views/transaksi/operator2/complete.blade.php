@@ -68,7 +68,7 @@
                         <option value="2">Tolak</option>
                     </select>
                 </div>
-             
+
                 <div class="form-group">
                     <button class="btn btn-sm btn-primary" type="submit">Ubah</button>
                     <a href="{{ route('transaksi.index.op2')}}" class="btn btn-sm btn-outline-success">Kembali</a>

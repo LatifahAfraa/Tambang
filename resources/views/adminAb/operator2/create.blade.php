@@ -59,6 +59,17 @@
                        </select>
                 </div>
 
+                <label for="">Tujuan</label>
+                <div class="form-group">
+                    <select name="tujuan_id"  class="form-select" >
+                        @foreach($tujuan as $item)
+                        <option value="{{ old('tujuan_id') ? old ('tujuan_id') : $item->tujuan_id }}">
+                            {{ $item->tujuan_nama }}
+                        </option>
+                        @endforeach
+                       </select>
+                </div>
+
 
                 <div class="form-group">
 

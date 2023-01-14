@@ -2,7 +2,7 @@
 @section('title')
 @section('content')
 
-    <div class="card">
+    <div class="card table-responsive">
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -17,7 +17,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade" id="pengajuan" role="tabpanel" aria-labelledby="pengajuan-tab">
                     <br>
-                    <table class="example">
+                    <table class="display example">
                         <thead>
                             <tr>
                                 <th>Nama</th>

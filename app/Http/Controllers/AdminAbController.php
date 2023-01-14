@@ -149,6 +149,8 @@ class AdminAbController extends Controller
         ->get();
         $data['satuan'] = DB::table('tb_satuan')
         ->get();
+        $data['tujuan'] = DB::table('tb_tujuan')
+        ->get();
         return view('adminAb.operator2.create',$data);
     }
 
@@ -174,6 +176,7 @@ class AdminAbController extends Controller
             'kendaraan_id' => 'required',
             'barang_id' => 'required',
             'satuan_id' => 'required',
+            'tujuan_id' => 'required',
         ]);
         $insert = DB::table('tb_transaksi')
                     ->insert([
@@ -185,6 +188,8 @@ class AdminAbController extends Controller
                                 'barang_id' =>$request->barang_id,
                                 'satuan_id' =>$request->satuan_id,
                                 'qty' =>$request->qty,
+                                'tujuan_id' => $request->tujuan_id,
+                                'keterangan' => null,
             ]);
         if($insert)
         {
