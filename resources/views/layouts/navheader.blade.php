@@ -4,7 +4,7 @@
         <div class="nav-header">
             <a href="#" class="brand-logo">
                 <img src="{{ asset('img/logos.png')}}" alt="" class="logo-abbr" viewBox="0 0 48 36">&nbsp;&nbsp;
-                <span class="brand-title">RhodaJaya</span>
+                <span class="brand-title">Koppaska</span>
             </a>
 
             <div class="nav-control">

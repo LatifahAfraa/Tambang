@@ -39,13 +39,13 @@
                     $total_keseluruhan = 0;
                 @endphp
                 {{-- fungsi => untuk ambil value  --}}
-                @foreach ($perpelanggan as $member_nama => $item )
+                @foreach ($perpelanggan as $tujuan_nama => $item )
                     @php
                        $total_keseluruhan += $item->sum('qty') ?? 0;
                     @endphp
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $member_nama }}</td>
+                        <td>{{ $tujuan_nama }}</td>
                         <td>{{ $item->sum('qty') ?? 0 }}</td>
                     </tr>
                 @endforeach

@@ -11,101 +11,23 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     // Admin
-    public function index(Request $request)
+    public function index()
     {
         $data['title'] = 'Home';
-        $find = $request->tahun ?? date("01/01/2022 - 12/31/2022");
-
-        $explode = explode("-", $find); //explode untuk memecah data waktu berdasarkan tanda -
-        $start = Carbon::parse($explode[0])->format('Y-m-d') . ' 00:00:01';
-        $data['month_start'] = date('m');
-        $data['start'] = $start;
-
-        $end = Carbon::parse($explode[1])->format('Y-m-d') . ' 23:59:59';
-        $data['month_end'] = date('m');
-        $data['end'] = $end;
-
-
-
-        $tb_transaksi = DB::table("tb_transaksi")
-        // ->select('') berdasarkan field
-        ->selectRaw("MONTH(check_in) as month, SUM(qty) as qty") //bisa menjalankan function bawaan sql
-        ->whereStatusTransaksi(1)
-        ->whereBetween('check_in', [$start, $end])
-        ->groupByRaw('MONTH(check_in)') // raw bisa menjalankan function
-        ->get();
-
-        $data['transaksi'] = [];
-        foreach ($tb_transaksi as $key => $transaksi) {
-            $data['transaksi'][$transaksi->month] = $transaksi->qty;
-        }
-
         return view('home',$data);
     }
 
 
     // Operator
-    public function indexOperator(Request $request)
+    public function indexOperator()
     {
         $data['title'] = 'Home';
-        $find = $request->tahun ?? date("01/01/2022 - 12/31/2022");
-
-        $explode = explode("-", $find); //explode untuk memecah data waktu berdasarkan tanda -
-        $start = Carbon::parse($explode[0])->format('Y-m-d') . ' 00:00:01';
-        $data['month_start'] = date('m');
-        $data['start'] = $start;
-
-        $end = Carbon::parse($explode[1])->format('Y-m-d') . ' 23:59:59';
-        $data['month_end'] = date('m');
-        $data['end'] = $end;
-
-
-
-        $tb_transaksi = DB::table("tb_transaksi")
-        // ->select('') berdasarkan field
-        ->selectRaw("MONTH(check_in) as month, SUM(qty) as qty") //bisa menjalankan function bawaan sql
-        ->whereStatusTransaksi(1)
-        ->whereBetween('check_in', [$start, $end])
-        ->groupByRaw('MONTH(check_in)') // raw bisa menjalankan function
-        ->get();
-
-        $data['transaksi'] = [];
-        foreach ($tb_transaksi as $key => $transaksi) {
-            $data['transaksi'][$transaksi->month] = $transaksi->qty;
-        }
-
         return view('home',$data);
     }
 
-    public function indexOperator2(Request $request)
+    public function indexOperator2()
     {
         $data['title'] = 'Home';
-        $find = $request->tahun ?? date("01/01/2022 - 12/31/2022");
-
-        $explode = explode("-", $find); //explode untuk memecah data waktu berdasarkan tanda -
-        $start = Carbon::parse($explode[0])->format('Y-m-d') . ' 00:00:01';
-        $data['month_start'] = date('m');
-        $data['start'] = $start;
-
-        $end = Carbon::parse($explode[1])->format('Y-m-d') . ' 23:59:59';
-        $data['month_end'] = date('m');
-        $data['end'] = $end;
-
-
-
-        $tb_transaksi = DB::table("tb_transaksi")
-        // ->select('') berdasarkan field
-        ->selectRaw("MONTH(check_in) as month, SUM(qty) as qty") //bisa menjalankan function bawaan sql
-        ->whereStatusTransaksi(1)
-        ->whereBetween('check_in', [$start, $end])
-        ->groupByRaw('MONTH(check_in)') // raw bisa menjalankan function
-        ->get();
-
-        $data['transaksi'] = [];
-        foreach ($tb_transaksi as $key => $transaksi) {
-            $data['transaksi'][$transaksi->month] = $transaksi->qty;
-        }
-
         return view('home',$data);
     }
 

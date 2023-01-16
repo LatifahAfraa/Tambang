@@ -32,44 +32,6 @@
                    </select>
                 </div>
 
-                <label for="qty">Jumlah QTY</label>
-                <div class="form-group">
-                    <input type="text" name="qty" class="form-control">
-                </div>
-
-                <label for="">Barang</label>
-                <div class="form-group">
-                    <select name="barang_id"  class="form-select" >
-                        @foreach($barang as $item)
-                        <option value="{{ old('barang_id') ? old ('barang_id') : $item->barang_id }}">
-                            {{ $item->barang_nama }}
-                        </option>
-                        @endforeach
-                       </select>
-                </div>
-
-                <label for="">Satuan</label>
-                <div class="form-group">
-                    <select name="satuan_id"  class="form-select" >
-                        @foreach($satuan as $item)
-                        <option value="{{ old('satuan_id') ? old ('satuan_id') : $item->satuan_id }}">
-                            {{ $item->satuan_nama }}
-                        </option>
-                        @endforeach
-                       </select>
-                </div>
-
-                <label for="">Tujuan</label>
-                <div class="form-group">
-                    <select name="tujuan_id"  class="form-select" >
-                        @foreach($tujuan as $item)
-                        <option value="{{ old('tujuan_id') ? old ('tujuan_id') : $item->tujuan_id }}">
-                            {{ $item->tujuan_nama }}
-                        </option>
-                        @endforeach
-                       </select>
-                </div>
-
 
                 <div class="form-group">
 
