@@ -33,12 +33,13 @@ class PerbarangExport implements FromView
         $end = date('Y-m-d', $end);
 
         $data['perbarang'] = DB::table('tb_transaksi')
-            ->select("tb_transaksi.*", "tb_barang.barang_nama", "tb_satuan.satuan_nama")
-            ->Join('tb_satuan', 'tb_satuan.satuan_id', '=', 'tb_transaksi.satuan_id')
-            ->join('tb_barang', 'tb_barang.barang_id', '=', 'tb_transaksi.barang_id')
-            ->whereBetween("tb_transaksi.check_in", [$start, $end.' 23:59:59'])
-            ->whereStatusTransaksi(1)
-            ->get()->groupBy(['barang_nama', 'satuan_nama']);
+        ->select("tb_transaksi.*", "tb_barang.barang_nama", "tb_satuan.satuan_nama", "tb_tujuan.tujuan_nama")
+        ->Join('tb_satuan', 'tb_satuan.satuan_id', '=', 'tb_transaksi.satuan_id')
+        ->join('tb_barang', 'tb_barang.barang_id', '=', 'tb_transaksi.barang_id')
+        ->join('tb_tujuan', 'tb_tujuan.tujuan_id', '=', 'tb_transaksi.tujuan_id')
+        ->whereBetween("check_in", [$start, $end.' 23:59:59'])
+        ->whereStatusTransaksi(1)
+        ->get()->groupBy(['barang_nama', 'satuan_nama']);
         return view('laporan.cetak-perbarang-excel', $data);
     }
 }
