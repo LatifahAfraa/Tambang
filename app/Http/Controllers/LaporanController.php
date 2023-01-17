@@ -94,8 +94,10 @@ class LaporanController extends Controller
         ->groupBy("tujuan_nama");
 
 
+        // $pdf = PDF::loadview('laporan.cetak-perpelanggan', $data);
+    	// return $pdf->download('laporan-perpelanggan.pdf', $data);
         $pdf = PDF::loadview('laporan.cetak-perpelanggan', $data);
-    	return $pdf->download('laporan-perpelanggan.pdf', $data);
+    	return $pdf->stream('laporan-perpelanggan.pdf', $data);
     }
 
     public function excel_perpelanggan(Request $request)
@@ -166,7 +168,7 @@ class LaporanController extends Controller
           ->groupBy(['barang_nama', 'tujuan_nama']);
 
         $pdf = PDF::loadview('laporan.cetak-barang-perpelanggan',$data);
-    	return $pdf->download('laporan-barang-perpelanggan.pdf');
+    	return $pdf->stream('laporan-barang-perpelanggan.pdf');
     }
 
     public function excel_barang_perpelanggan(Request $request)
@@ -230,7 +232,7 @@ class LaporanController extends Controller
             ->get()->groupBy(['barang_nama', 'satuan_nama']);
 
         $pdf = PDF::loadview('laporan.cetak-perbarang',$data);
-    	return $pdf->download('laporan-perbarang.pdf', $data);
+    	return $pdf->stream('laporan-perbarang.pdf', $data);
     }
 
     public function excel_perbarang(Request $request)
