@@ -133,6 +133,14 @@
                                 -&nbsp;Perbarang
                             </a>
                         </li>
+
+                        <li>
+                            <a href="{{ route('tabel') }}"
+                                class="{{ request()->routeIs('tabel') ? 'mm-active' : '' }}"
+                                aria-expanded="false">
+                                -&nbsp;Grafik Ritase
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
